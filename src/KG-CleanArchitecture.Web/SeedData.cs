@@ -1,4 +1,5 @@
-﻿using KG_CleanArchitecture.Core.ProjectAggregate;
+﻿
+using KG_CleanArchitecture.Core.PhonebookAggregate;
 using KG_CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,21 +7,18 @@ namespace KG_CleanArchitecture.Web;
 
 public static class SeedData
 {
-  public static readonly Project TestProject1 = new Project("Test Project", PriorityStatus.Backlog);
-  public static readonly ToDoItem ToDoItem1 = new ToDoItem
+  public static readonly Phonebook TestProject1 = new Phonebook();
+  public static readonly Entry Entry1 = new Entry
   {
-    Title = "Get Sample Working",
-    Description = "Try to get the sample to build."
+    Name = "Peter",
+    PhoneNumber = "0721478523",
+    Id = 1
   };
-  public static readonly ToDoItem ToDoItem2 = new ToDoItem
+  public static readonly Entry Entry2 = new Entry
   {
-    Title = "Review Solution",
-    Description = "Review the different projects in the solution and how they relate to one another."
-  };
-  public static readonly ToDoItem ToDoItem3 = new ToDoItem
-  {
-    Title = "Run and Review Tests",
-    Description = "Make sure all the tests run and review what they are doing."
+    Name = "Jacky",
+    PhoneNumber = "0718478520",
+    Id = 2
   };
 
   public static void Initialize(IServiceProvider serviceProvider)
@@ -29,7 +27,7 @@ public static class SeedData
         serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
     {
       // Look for any TODO items.
-      if (dbContext.ToDoItems.Any())
+      if (dbContext.Entries.Any())
       {
         return;   // DB has been seeded
       }
@@ -41,20 +39,19 @@ public static class SeedData
   }
   public static void PopulateTestData(AppDbContext dbContext)
   {
-    foreach (var item in dbContext.Projects)
+    foreach (var item in dbContext.Phonebooks)
     {
       dbContext.Remove(item);
     }
-    foreach (var item in dbContext.ToDoItems)
+    foreach (var item in dbContext.Entries)
     {
       dbContext.Remove(item);
     }
     dbContext.SaveChanges();
 
-    TestProject1.AddItem(ToDoItem1);
-    TestProject1.AddItem(ToDoItem2);
-    TestProject1.AddItem(ToDoItem3);
-    dbContext.Projects.Add(TestProject1);
+    TestProject1.AddItem(Entry1);
+    TestProject1.AddItem(Entry2);
+    dbContext.Phonebooks.Add(TestProject1);
 
     dbContext.SaveChanges();
   }

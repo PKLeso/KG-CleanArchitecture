@@ -1,4 +1,4 @@
-﻿using KG_CleanArchitecture.Core.ProjectAggregate;
+﻿using KG_CleanArchitecture.Core.PhonebookAggregate;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -9,38 +9,37 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   [Fact]
   public async Task UpdatesItemAfterAddingIt()
   {
-    // add a project
+    // add a phonebook entry
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName, PriorityStatus.Backlog);
+    var phonebook = new Phonebook();
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(phonebook);
 
     // detach the item so we get a different instance
-    _dbContext.Entry(project).State = EntityState.Detached;
+    _dbContext.Entry(phonebook).State = EntityState.Detached;
 
     // fetch the item and update its title
-    var newProject = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == initialName);
-    if (newProject == null)
+    var newPhonebook = (await repository.ListAsync())
+        .FirstOrDefault(phonebook => phonebook.Name == initialName);
+    if (newPhonebook == null)
     {
-      Assert.NotNull(newProject);
+      Assert.NotNull(newPhonebook);
       return;
     }
-    Assert.NotSame(project, newProject);
+    Assert.NotSame(phonebook, newPhonebook);
     var newName = Guid.NewGuid().ToString();
-    newProject.UpdateName(newName);
+    newPhonebook.UpdateName(newName);
 
     // Update the item
-    await repository.UpdateAsync(newProject);
+    await repository.UpdateAsync(newPhonebook);
 
     // Fetch the updated item
     var updatedItem = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == newName);
+        .FirstOrDefault(phonebook => phonebook.Name == newName);
 
     Assert.NotNull(updatedItem);
-    Assert.NotEqual(project.Name, updatedItem?.Name);
-    Assert.Equal(project.Priority, updatedItem?.Priority);
-    Assert.Equal(newProject.Id, updatedItem?.Id);
+    Assert.NotEqual(phonebook.Name, updatedItem?.Name);
+    Assert.Equal(newPhonebook.Id, updatedItem?.Id);
   }
 }

@@ -1,4 +1,4 @@
-﻿using KG_CleanArchitecture.Core.ProjectAggregate;
+﻿using KG_CleanArchitecture.Core.PhonebookAggregate;
 using KG_CleanArchitecture.Infrastructure.Data;
 using KG_CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -36,8 +36,8 @@ public abstract class BaseEfRepoTestFixture
     return builder.Options;
   }
 
-  protected EfRepository<Project> GetRepository()
+  protected EfRepository<Phonebook> GetRepository()
   {
-    return new EfRepository<Project>(_dbContext);
+    return new EfRepository<Phonebook>(_dbContext);
   }
 }

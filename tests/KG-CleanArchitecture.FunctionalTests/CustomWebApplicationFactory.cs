@@ -44,7 +44,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
       try
       {
         // Can also skip creating the items
-        //if (!db.ToDoItems.Any())
+        //if (!db.Entries.Any())
         //{
         // Seed the database with test data.
           SeedData.PopulateTestData(db);

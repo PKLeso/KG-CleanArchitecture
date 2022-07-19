@@ -1,4 +1,4 @@
-﻿using KG_CleanArchitecture.Core.ProjectAggregate;
+﻿using KG_CleanArchitecture.Core.PhonebookAggregate;
 using Xunit;
 
 namespace KG_CleanArchitecture.IntegrationTests.Data;
@@ -6,20 +6,18 @@ namespace KG_CleanArchitecture.IntegrationTests.Data;
 public class EfRepositoryAdd : BaseEfRepoTestFixture
 {
   [Fact]
-  public async Task AddsProjectAndSetsId()
+  public async Task AddsPhonebookAndSetsId()
   {
-    var testProjectName = "testProject";
-    var testProjectStatus = PriorityStatus.Backlog;
+    var testPhonebookName = "testPhonebookName";
     var repository = GetRepository();
-    var project = new Project(testProjectName, testProjectStatus);
+    var phonebook = new Phonebook();
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(phonebook);
 
-    var newProject = (await repository.ListAsync())
+    var newPhonebook = (await repository.ListAsync())
                     .FirstOrDefault();
 
-    Assert.Equal(testProjectName, newProject?.Name);
-    Assert.Equal(testProjectStatus, newProject?.Priority);
-    Assert.True(newProject?.Id > 0);
+    Assert.Equal(testPhonebookName, newPhonebook?.Name);
+    Assert.True(newPhonebook?.Id > 0);
   }
 }

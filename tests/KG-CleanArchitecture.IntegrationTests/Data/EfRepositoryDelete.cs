@@ -1,4 +1,5 @@
-﻿using KG_CleanArchitecture.Core.ProjectAggregate;
+﻿using KG_CleanArchitecture.Core.PhonebookAggregate;
+using KG_CleanArchitecture.Core.ProjectAggregate;
 using Xunit;
 
 namespace KG_CleanArchitecture.IntegrationTests.Data;
@@ -11,11 +12,11 @@ public class EfRepositoryDelete : BaseEfRepoTestFixture
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName, PriorityStatus.Backlog);
-    await repository.AddAsync(project);
+    var phonebook = new Phonebook();
+    await repository.AddAsync(phonebook);
 
     // delete the item
-    await repository.DeleteAsync(project);
+    await repository.DeleteAsync(phonebook);
 
     // verify it's no longer there
     Assert.DoesNotContain(await repository.ListAsync(),

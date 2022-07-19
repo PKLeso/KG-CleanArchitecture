@@ -5,6 +5,7 @@ using KG_CleanArchitecture.Core;
 using KG_CleanArchitecture.Infrastructure;
 using KG_CleanArchitecture.Infrastructure.Data;
 using KG_CleanArchitecture.Web;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -20,16 +21,19 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
+//string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext(connectionString);
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
-builder.Services.AddRazorPages();
+//builder.Services.AddRazorPages();
 
 builder.Services.AddSwaggerGen(c =>
 {
-  c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+  c.SwaggerDoc("v1", new OpenApiInfo { Title = "Phonebook API", Version = "v1" });
   c.EnableAnnotations();
 });
 
@@ -45,7 +49,6 @@ builder.Services.Configure<ServiceConfig>(config =>
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
-  containerBuilder.RegisterModule(new DefaultCoreModule());
   containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
 
@@ -73,12 +76,16 @@ app.UseCookiePolicy();
 app.UseSwagger();
 
 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+app.UseSwaggerUI(c =>
+{
+  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Phonebook API V1");
+  c.RoutePrefix = String.Empty;
+});
 
 app.UseEndpoints(endpoints =>
 {
   endpoints.MapDefaultControllerRoute();
-  endpoints.MapRazorPages();
+  //endpoints.MapRazorPages();
 });
 
 // Seed Database

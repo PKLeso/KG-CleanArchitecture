@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using KG_CleanArchitecture.Core.ProjectAggregate;
+using KG_CleanArchitecture.Core.PhonebookAggregate;
 using KG_CleanArchitecture.SharedKernel;
 using KG_CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +17,8 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<Project> Projects => Set<Project>();
+  public DbSet<Entry> Entries => Set<Entry>();
+  public DbSet<Phonebook> Phonebooks => Set<Phonebook>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

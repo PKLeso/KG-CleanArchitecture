@@ -11,6 +11,39 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Remove="ApiModels\**" />
+    <Compile Remove="Api\**" />
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Pages\**" />
+    <Content Remove="ApiModels\**" />
+    <Content Remove="Api\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="Pages\**" />
+    <EmbeddedResource Remove="ApiModels\**" />
+    <EmbeddedResource Remove="Api\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="ApiModels\**" />
+    <None Remove="Api\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Pages\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Endpoints\PhonebookEndpoints\ListIncomplete.cs" />
+    <Compile Remove="Endpoints\PhonebookEndpoints\ListIncomplete.ListIncompleteRequest.cs" />
+    <Compile Remove="Endpoints\PhonebookEndpoints\ListIncomplete.ListIncompleteResponse.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="database.sqlite" />
+    <None Remove="database.sqlite-shm" />
+    <None Remove="database.sqlite-wal" />
+    <None Remove="log20220716.txt" />
+    <None Remove="log20220718.txt" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" />
     <PackageReference Include="Ardalis.ListStartupServices" />
     <PackageReference Include="Ardalis.Result" />
