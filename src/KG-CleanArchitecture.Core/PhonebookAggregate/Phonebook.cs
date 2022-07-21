@@ -12,6 +12,10 @@ public class Phonebook : EntityBase, IAggregateRoot
   private List<Entry> _entries = new List<Entry>();
   public IEnumerable<Entry> Entries => _entries.AsReadOnly();
 
+  public Phonebook(string name)
+  {
+    Name = name;
+  }
 
   public void AddItem(Entry newEntry)
   {

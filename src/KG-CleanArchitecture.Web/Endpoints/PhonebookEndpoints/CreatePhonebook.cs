@@ -6,18 +6,18 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints;
 
-public class Create : EndpointBaseAsync
+public class CreatePhonebook : EndpointBaseAsync
     .WithRequest<CreatePhonebookRequest>
     .WithActionResult<CreatePhonebookResponse>
 {
   private readonly IRepository<Phonebook> _repository;
 
-  public Create(IRepository<Phonebook> repository)
+  public CreatePhonebook(IRepository<Phonebook> repository)
   {
     _repository = repository;
   }
 
-  [HttpPost("/Phonebook")]
+  [HttpPost("/create-phonebook")]
   [SwaggerOperation(
       Summary = "Creates a new Phonebook",
       Description = "Creates a new Phonebook",
@@ -32,7 +32,7 @@ public class Create : EndpointBaseAsync
       return BadRequest();
     }
 
-    var newPhonebook = new Phonebook();
+    var newPhonebook = new Phonebook(request.Name);
 
     var createdItem = await _repository.AddAsync(newPhonebook);
 

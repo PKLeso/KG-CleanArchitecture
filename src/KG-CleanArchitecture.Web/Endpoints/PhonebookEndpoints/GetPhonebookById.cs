@@ -8,13 +8,13 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints;
 
-public class GetById : EndpointBaseAsync
+public class GetPhonebookById : EndpointBaseAsync
     .WithRequest<GetPhonebookByIdRequest>
     .WithActionResult<GetPhonebookByIdResponse>
 {
   private readonly IRepository<Phonebook> _repository;
 
-  public GetById(IRepository<Phonebook> repository)
+  public GetPhonebookById(IRepository<Phonebook> repository)
   {
     _repository = repository;
   }

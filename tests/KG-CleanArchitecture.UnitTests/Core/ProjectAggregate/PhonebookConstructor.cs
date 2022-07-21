@@ -10,7 +10,7 @@ public class PhonebookConstructor
 
   private Phonebook CreatePhonebook()
   {
-    return new Phonebook();
+    return new Phonebook("Test name");
   }
 
   [Fact]

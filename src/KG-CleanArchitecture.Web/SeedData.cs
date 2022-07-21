@@ -7,19 +7,9 @@ namespace KG_CleanArchitecture.Web;
 
 public static class SeedData
 {
-  public static readonly Phonebook TestProject1 = new Phonebook();
-  public static readonly Entry Entry1 = new Entry
-  {
-    Name = "Peter",
-    PhoneNumber = "0721478523",
-    Id = 1
-  };
-  public static readonly Entry Entry2 = new Entry
-  {
-    Name = "Jacky",
-    PhoneNumber = "0718478520",
-    Id = 2
-  };
+  public static readonly Phonebook TestProject1 = new Phonebook("Phonebook 1");
+  public static readonly Entry Entry1 = new Entry("Peter", "0721478523", 1);
+  public static readonly Entry Entry2 = new Entry("Jacky", "0718478520", 2);
 
   public static void Initialize(IServiceProvider serviceProvider)
   {

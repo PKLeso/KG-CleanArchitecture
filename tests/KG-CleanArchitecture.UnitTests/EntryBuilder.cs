@@ -6,7 +6,7 @@ namespace KG_CleanArchitecture.UnitTests;
 // https://ardalis.com/improve-tests-with-the-builder-pattern-for-test-data
 public class EntryBuilder
 {
-  private Entry _entry = new Entry();
+  private Entry _entry = new Entry("Test Name", "Test phone number", 1);
 
   public EntryBuilder Id(int id)
   {
@@ -14,21 +14,10 @@ public class EntryBuilder
     return this;
   }
 
-  public EntryBuilder Name(string name)
-  {
-    _entry.Name = name;
-    return this;
-  }
-
-  public EntryBuilder PhoneNumber(string phonenumber)
-  {
-    _entry.PhoneNumber = phonenumber;
-    return this;
-  }
 
   public EntryBuilder WithDefaultValues()
   {
-    _entry = new Entry() { Id = 1, Name = "Test Name", PhoneNumber = "Test PhoneNumber" };
+    _entry = new Entry("Test Name", "Test PhoneNumber", 1);
 
     return this;
   }

@@ -772,3 +772,1194 @@ FROM [Phonebooks] AS [p]
 2022-07-19 03:30:23.799 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 521.9105ms
 2022-07-19 03:30:23.802 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
 2022-07-19 03:30:23.813 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 16 application/json;+charset=utf-8 603.4592ms
+2022-07-19 03:43:33.829 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:43:34.698 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 03:43:34.747 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 03:43:34.795 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:43:35.094 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 03:43:35.140 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:43:35.144 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 03:43:35.447 +02:00 [INF] Executed DbCommand (55ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:43:35.510 +02:00 [ERR] Failed executing DbCommand (19ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Id], [Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2, @p3);
+2022-07-19 03:43:35.612 +02:00 [ERR] An exception occurred in the database while saving changes for context type 'KG_CleanArchitecture.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert explicit value for identity column in table 'Entries' when IDENTITY_INSERT is set to OFF.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:eb7bb94f-48e9-4376-bcc1-41f210592ca6
+Error Number:544,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert explicit value for identity column in table 'Entries' when IDENTITY_INSERT is set to OFF.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:eb7bb94f-48e9-4376-bcc1-41f210592ca6
+Error Number:544,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2022-07-19 03:43:35.699 +02:00 [ERR] An error occurred seeding the DB. An error occurred while saving the entity changes. See the inner exception for details.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert explicit value for identity column in table 'Entries' when IDENTITY_INSERT is set to OFF.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:eb7bb94f-48e9-4376-bcc1-41f210592ca6
+Error Number:544,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at KG_CleanArchitecture.Infrastructure.Data.AppDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Infrastructure\Data\AppDbContext.cs:line 31
+   at KG_CleanArchitecture.Infrastructure.Data.AppDbContext.SaveChanges() in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Infrastructure\Data\AppDbContext.cs:line 49
+   at KG_CleanArchitecture.Web.SeedData.PopulateTestData(AppDbContext dbContext) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\SeedData.cs:line 56
+   at KG_CleanArchitecture.Web.SeedData.Initialize(IServiceProvider serviceProvider) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\SeedData.cs:line 35
+   at Program.<Main>$(String[] args) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\Program.cs:line 101
+2022-07-19 03:43:35.847 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 03:43:35.962 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 03:43:35.962 +02:00 [INF] Hosting environment: Development
+2022-07-19 03:43:35.962 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 03:43:35.994 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 03:43:36.056 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 03:43:36.272 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 03:43:36.279 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 5.8493ms
+2022-07-19 03:43:36.291 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 300.4708ms
+2022-07-19 03:43:36.393 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 03:43:36.427 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 33.8003ms
+2022-07-19 03:43:36.565 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 03:43:36.720 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 154.8706ms
+2022-07-19 03:44:05.631 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/Phonebook application/json-patch+json 30
+2022-07-19 03:44:05.633 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:05.655 +02:00 [INF] Route matched with {action = "Handle", controller = "Create"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create (KG-CleanArchitecture.Web).
+2022-07-19 03:44:18.500 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:44:18.537 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:44:23.902 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse'.
+2022-07-19 03:44:23.951 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web) in 18291.9713ms
+2022-07-19 03:44:23.953 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:23.957 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/Phonebook application/json-patch+json 30 - 200 32 application/json;+charset=utf-8 18326.3474ms
+2022-07-19 03:44:52.569 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook - -
+2022-07-19 03:44:52.569 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:52.572 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 03:44:52.577 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:44:52.599 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:44:52.619 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 03:44:52.630 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 57.3482ms
+2022-07-19 03:44:52.630 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:52.630 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 48 application/json;+charset=utf-8 61.2368ms
+2022-07-19 03:44:54.665 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook - -
+2022-07-19 03:44:54.665 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:54.666 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 03:44:54.666 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:44:54.669 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:44:54.670 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 03:44:54.671 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 5.2801ms
+2022-07-19 03:44:54.671 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:44:54.671 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 48 application/json;+charset=utf-8 6.0589ms
+2022-07-19 03:45:14.882 +02:00 [INF] Request starting HTTP/1.1 PUT http://localhost:57678/Phonebook application/json-patch+json 35
+2022-07-19 03:45:14.885 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:14.889 +02:00 [INF] Route matched with {action = "Handle", controller = "Update"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update (KG-CleanArchitecture.Web).
+2022-07-19 03:45:14.902 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:45:14.983 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+WHERE [p].[Id] = @__p_0
+2022-07-19 03:45:14.994 +02:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2022-07-19 03:45:15.014 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web) in 124.7342ms
+2022-07-19 03:45:15.014 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:15.014 +02:00 [INF] Request finished HTTP/1.1 PUT http://localhost:57678/Phonebook application/json-patch+json 35 - 404 161 application/problem+json;+charset=utf-8 133.6238ms
+2022-07-19 03:45:38.905 +02:00 [INF] Request starting HTTP/1.1 PUT http://localhost:57678/Phonebook application/json-patch+json 44
+2022-07-19 03:45:38.905 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:38.905 +02:00 [INF] Route matched with {action = "Handle", controller = "Update"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update (KG-CleanArchitecture.Web).
+2022-07-19 03:45:38.906 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:45:38.921 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+WHERE [p].[Id] = @__p_0
+2022-07-19 03:45:39.095 +02:00 [INF] Executed DbCommand (165ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [Phonebooks] SET [Name] = @p0
+WHERE [Id] = @p1;
+SELECT @@ROWCOUNT;
+2022-07-19 03:45:39.100 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdatePhonebookResponse'.
+2022-07-19 03:45:39.101 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web) in 196.0083ms
+2022-07-19 03:45:39.101 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Update.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:39.102 +02:00 [INF] Request finished HTTP/1.1 PUT http://localhost:57678/Phonebook application/json-patch+json 44 - 200 49 application/json;+charset=utf-8 196.5702ms
+2022-07-19 03:45:51.670 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook/7 - -
+2022-07-19 03:45:51.671 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:51.675 +02:00 [INF] Route matched with {action = "Handle", controller = "GetById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById (KG-CleanArchitecture.Web).
+2022-07-19 03:45:51.689 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:45:51.813 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__phonebookId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Name], [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM (
+    SELECT TOP(1) [p].[Id], [p].[Name]
+    FROM [Phonebooks] AS [p]
+    WHERE [p].[Id] = @__phonebookId_0
+) AS [t]
+LEFT JOIN [Entries] AS [e] ON [t].[Id] = [e].[PhonebookId]
+ORDER BY [t].[Id]
+2022-07-19 03:45:51.821 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse'.
+2022-07-19 03:45:51.824 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web) in 148.0855ms
+2022-07-19 03:45:51.824 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:51.824 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook/7 - - - 200 48 application/json;+charset=utf-8 153.4134ms
+2022-07-19 03:45:57.744 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook - -
+2022-07-19 03:45:57.745 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:57.745 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 03:45:57.745 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:45:57.747 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:45:57.748 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 03:45:57.749 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 4.2238ms
+2022-07-19 03:45:57.749 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:57.749 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 51 application/json;+charset=utf-8 5.0329ms
+2022-07-19 03:45:59.705 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook - -
+2022-07-19 03:45:59.705 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:59.705 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 03:45:59.706 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:45:59.707 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:45:59.708 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 03:45:59.709 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 3.6188ms
+2022-07-19 03:45:59.709 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:45:59.709 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 51 application/json;+charset=utf-8 4.5446ms
+2022-07-19 03:47:39.716 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:47:40.182 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 03:47:40.231 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 03:47:40.252 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:47:40.555 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 03:47:40.601 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:47:40.672 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 03:47:40.846 +02:00 [INF] Executed DbCommand (50ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [Phonebooks]
+WHERE [Id] = @p0;
+SELECT @@ROWCOUNT;
+2022-07-19 03:47:40.968 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:47:41.090 +02:00 [INF] Executed DbCommand (95ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:47:41.094 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:47:41.130 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 03:47:41.207 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 03:47:41.208 +02:00 [INF] Hosting environment: Development
+2022-07-19 03:47:41.208 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 03:47:41.231 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 03:47:41.283 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 03:47:41.505 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 03:47:41.512 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 5.9003ms
+2022-07-19 03:47:41.525 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 296.4639ms
+2022-07-19 03:47:41.639 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 03:47:41.676 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 36.6778ms
+2022-07-19 03:47:41.835 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 03:47:42.047 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 211.6785ms
+2022-07-19 03:49:06.634 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/Phonebook application/json-patch+json 27
+2022-07-19 03:49:06.640 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:49:06.662 +02:00 [INF] Route matched with {action = "Handle", controller = "Create"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create (KG-CleanArchitecture.Web).
+2022-07-19 03:49:11.412 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:49:11.417 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 03:49:11.437 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse'.
+2022-07-19 03:49:11.482 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web) in 4816.2087ms
+2022-07-19 03:49:11.483 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Create.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:49:11.488 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/Phonebook application/json-patch+json 27 - 200 29 application/json;+charset=utf-8 4854.8541ms
+2022-07-19 03:49:24.067 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook - -
+2022-07-19 03:49:24.068 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:49:24.070 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 03:49:24.074 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:49:24.090 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 03:49:24.103 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 03:49:24.113 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 42.2714ms
+2022-07-19 03:49:24.113 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:49:24.113 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook - - - 200 75 application/json;+charset=utf-8 45.7816ms
+2022-07-19 03:50:13.592 +02:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:57678/Phonebook/9 - -
+2022-07-19 03:50:13.598 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Delete.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:50:13.601 +02:00 [INF] Route matched with {action = "Handle", controller = "Delete"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.DeletePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Delete (KG-CleanArchitecture.Web).
+2022-07-19 03:50:13.612 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 03:50:13.686 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+WHERE [p].[Id] = @__p_0
+2022-07-19 03:50:13.701 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [Phonebooks]
+WHERE [Id] = @p0;
+SELECT @@ROWCOUNT;
+2022-07-19 03:50:13.708 +02:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2022-07-19 03:50:13.709 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Delete.HandleAsync (KG-CleanArchitecture.Web) in 107.2235ms
+2022-07-19 03:50:13.709 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.Delete.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 03:50:13.711 +02:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:57678/Phonebook/9 - - - 204 - - 119.0975ms
+2022-07-19 04:52:36.038 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 04:52:36.983 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 04:52:37.032 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 04:52:37.060 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 04:52:37.381 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 04:52:37.436 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 04:52:37.538 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 04:52:37.538 +02:00 [INF] Hosting environment: Development
+2022-07-19 04:52:37.538 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 04:52:37.583 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 04:52:37.646 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 04:52:37.918 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 04:52:37.924 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 4.9171ms
+2022-07-19 04:52:37.936 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 356.4553ms
+2022-07-19 04:52:38.061 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 04:52:38.101 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 40.6302ms
+2022-07-19 04:52:38.232 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 04:52:38.326 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 04:52:38.417 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 185.0117ms
+2022-07-19 05:06:14.663 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:06:15.600 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:06:15.647 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:06:15.705 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:06:16.031 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:06:16.081 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:06:16.193 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:06:16.194 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:06:16.194 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:06:16.241 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:06:16.310 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:06:16.576 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:06:16.585 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 6.5338ms
+2022-07-19 05:06:16.601 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 363.5321ms
+2022-07-19 05:06:16.722 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:06:16.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 39.9009ms
+2022-07-19 05:06:16.922 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:06:17.125 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:06:17.217 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 295.2838ms
+2022-07-19 05:06:41.405 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:06:41.444 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:06:41.532 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/html;+charset=utf-8 126.2886ms
+2022-07-19 05:06:41.569 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:06:41.569 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:06:41.571 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 1.9411ms
+2022-07-19 05:06:41.598 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 28.6601ms
+2022-07-19 05:10:28.503 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:10:29.260 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:10:29.308 +02:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:10:29.328 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:10:29.637 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:10:29.680 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:10:29.771 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:10:29.771 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:10:29.771 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:10:29.796 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:10:29.850 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:10:30.072 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:10:30.079 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 5.8740ms
+2022-07-19 05:10:30.091 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 297.8331ms
+2022-07-19 05:10:30.205 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:10:30.243 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 38.0437ms
+2022-07-19 05:10:30.374 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:10:30.480 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:10:30.544 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 169.6576ms
+2022-07-19 05:14:00.715 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:14:01.220 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:14:01.271 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:14:01.302 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:14:01.679 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:14:01.720 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:14:01.811 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:14:01.811 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:14:01.811 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:14:01.841 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:14:01.901 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:14:02.133 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:14:02.141 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 6.1662ms
+2022-07-19 05:14:02.154 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 317.0465ms
+2022-07-19 05:14:02.275 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:14:02.310 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 34.7036ms
+2022-07-19 05:14:02.462 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:14:02.622 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:14:03.801 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 1339.7978ms
+2022-07-19 05:14:11.312 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:14:11.320 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET Phonebook/{PhonebookId}" for actions - KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web),KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:14:13.092 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 500 - text/html;+charset=utf-8 1510.3631ms
+2022-07-19 05:14:13.325 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:14:13.546 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:14:13.548 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 222.7965ms
+2022-07-19 05:14:13.570 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 23.2455ms
+2022-07-19 05:16:01.836 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:16:02.405 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:16:02.461 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:16:02.481 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:16:02.796 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:16:02.850 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:16:02.933 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:16:02.933 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:16:02.933 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:16:02.964 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:16:03.017 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:16:03.243 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:16:03.250 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 5.0098ms
+2022-07-19 05:16:03.263 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 302.6794ms
+2022-07-19 05:16:03.369 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:16:03.407 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 38.0138ms
+2022-07-19 05:16:03.539 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:16:03.693 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 154.6751ms
+2022-07-19 05:16:44.426 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 53
+2022-07-19 05:16:44.435 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:16:44.471 +02:00 [INF] Route matched with {action = "Handle", controller = "CreateEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:16:44.694 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:16:44.795 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web) in 319.0747ms
+2022-07-19 05:16:44.798 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:16:44.799 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot create a DbSet for 'AddEntry' because this type is not included in the model for the context.
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.EntryWithoutDetectChanges(TEntity entity)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Add(TEntity entity)
+   at Ardalis.Specification.EntityFrameworkCore.RepositoryBase`1.AddAsync(T entity, CancellationToken cancellationToken)
+   at KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync(CreateEntryRequest request, CancellationToken cancellationToken) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\Endpoints\EntriesEndpoints\CreateEntry.cs:line 38
+   at lambda_method459(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:16:44.971 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 53 - 500 - text/plain;+charset=utf-8 546.0075ms
+2022-07-19 05:17:16.750 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/create-phonebook application/json-patch+json 32
+2022-07-19 05:17:16.752 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:16.756 +02:00 [INF] Route matched with {action = "Handle", controller = "CreatePhonebook"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook (KG-CleanArchitecture.Web).
+2022-07-19 05:17:16.760 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:17:17.176 +02:00 [INF] Executed DbCommand (163ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 05:17:17.276 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse'.
+2022-07-19 05:17:17.341 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web) in 585.0313ms
+2022-07-19 05:17:17.343 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:17.343 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/create-phonebook application/json-patch+json 32 - 200 35 application/json;+charset=utf-8 593.3211ms
+2022-07-19 05:17:29.133 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook/1 - -
+2022-07-19 05:17:29.134 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:29.139 +02:00 [INF] Route matched with {action = "Handle", controller = "GetPhonebookById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById (KG-CleanArchitecture.Web).
+2022-07-19 05:17:29.157 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:17:29.445 +02:00 [INF] Executed DbCommand (35ms) [Parameters=[@__phonebookId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Name], [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM (
+    SELECT TOP(1) [p].[Id], [p].[Name]
+    FROM [Phonebooks] AS [p]
+    WHERE [p].[Id] = @__phonebookId_0
+) AS [t]
+LEFT JOIN [Entries] AS [e] ON [t].[Id] = [e].[PhonebookId]
+ORDER BY [t].[Id]
+2022-07-19 05:17:29.462 +02:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2022-07-19 05:17:29.485 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web) in 346.068ms
+2022-07-19 05:17:29.485 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:29.485 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook/1 - - - 404 161 application/problem+json;+charset=utf-8 352.1948ms
+2022-07-19 05:17:32.218 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook/2 - -
+2022-07-19 05:17:32.219 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:32.220 +02:00 [INF] Route matched with {action = "Handle", controller = "GetPhonebookById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById (KG-CleanArchitecture.Web).
+2022-07-19 05:17:32.221 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:17:32.230 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__phonebookId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Name], [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM (
+    SELECT TOP(1) [p].[Id], [p].[Name]
+    FROM [Phonebooks] AS [p]
+    WHERE [p].[Id] = @__phonebookId_0
+) AS [t]
+LEFT JOIN [Entries] AS [e] ON [t].[Id] = [e].[PhonebookId]
+ORDER BY [t].[Id]
+2022-07-19 05:17:32.237 +02:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2022-07-19 05:17:32.242 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web) in 22.4252ms
+2022-07-19 05:17:32.242 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:32.242 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook/2 - - - 404 161 application/problem+json;+charset=utf-8 24.0818ms
+2022-07-19 05:17:38.511 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook/11 - -
+2022-07-19 05:17:38.511 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:38.511 +02:00 [INF] Route matched with {action = "Handle", controller = "GetPhonebookById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById (KG-CleanArchitecture.Web).
+2022-07-19 05:17:38.512 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:17:38.515 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__phonebookId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Name], [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM (
+    SELECT TOP(1) [p].[Id], [p].[Name]
+    FROM [Phonebooks] AS [p]
+    WHERE [p].[Id] = @__phonebookId_0
+) AS [t]
+LEFT JOIN [Entries] AS [e] ON [t].[Id] = [e].[PhonebookId]
+ORDER BY [t].[Id]
+2022-07-19 05:17:38.516 +02:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2022-07-19 05:17:38.516 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web) in 5.0211ms
+2022-07-19 05:17:38.517 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:38.517 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook/11 - - - 404 161 application/problem+json;+charset=utf-8 5.6092ms
+2022-07-19 05:17:42.446 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Phonebook/10 - -
+2022-07-19 05:17:42.447 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:42.452 +02:00 [INF] Route matched with {action = "Handle", controller = "GetPhonebookById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById (KG-CleanArchitecture.Web).
+2022-07-19 05:17:42.454 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:17:42.465 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[@__phonebookId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Name], [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM (
+    SELECT TOP(1) [p].[Id], [p].[Name]
+    FROM [Phonebooks] AS [p]
+    WHERE [p].[Id] = @__phonebookId_0
+) AS [t]
+LEFT JOIN [Entries] AS [e] ON [t].[Id] = [e].[PhonebookId]
+ORDER BY [t].[Id]
+2022-07-19 05:17:42.475 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetPhonebookByIdResponse'.
+2022-07-19 05:17:42.487 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web) in 35.4458ms
+2022-07-19 05:17:42.487 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.GetPhonebookById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:17:42.488 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Phonebook/10 - - - 200 48 application/json;+charset=utf-8 41.7288ms
+2022-07-19 05:18:07.675 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 05:18:07.675 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:18:07.680 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:18:07.684 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:18:07.728 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 48.0461ms
+2022-07-19 05:18:07.728 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:18:07.729 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot create a DbSet for 'AddEntry' because this type is not included in the model for the context.
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Collections.Generic.IAsyncEnumerable<TEntity>.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Ardalis.Specification.EntityFrameworkCore.RepositoryBase`1.ListAsync(CancellationToken cancellationToken)
+   at KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync(CancellationToken cancellationToken) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\Endpoints\EntriesEndpoints\ListEntry.cs:line 30
+   at lambda_method560(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:18:07.734 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 500 - text/plain;+charset=utf-8 59.2082ms
+2022-07-19 05:25:38.379 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:25:38.813 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:25:38.863 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:25:38.885 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:25:39.198 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:25:39.237 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:25:39.327 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:25:39.328 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:25:39.328 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:25:39.351 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:25:39.404 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:25:39.609 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:25:39.616 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 5.0349ms
+2022-07-19 05:25:39.627 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 278.6500ms
+2022-07-19 05:25:39.734 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:25:39.769 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 35.3069ms
+2022-07-19 05:25:39.900 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:25:40.055 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 155.3101ms
+2022-07-19 05:25:50.423 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 05:25:50.427 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:25:50.450 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:25:50.503 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:25:50.554 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 98.917ms
+2022-07-19 05:25:50.556 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:25:50.557 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot create a DbSet for 'AddEntry' because this type is not included in the model for the context.
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Collections.Generic.IAsyncEnumerable<TEntity>.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Ardalis.Specification.EntityFrameworkCore.RepositoryBase`1.ListAsync(CancellationToken cancellationToken)
+   at KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync(CancellationToken cancellationToken) in C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\Endpoints\EntriesEndpoints\ListEntry.cs:line 30
+   at lambda_method459(Closure , Object )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-19 05:25:50.602 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 500 - text/plain;+charset=utf-8 179.3068ms
+2022-07-19 05:41:49.178 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:41:49.915 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 05:41:49.965 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 05:41:49.985 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:41:50.293 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 05:41:50.331 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 05:41:50.415 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 05:41:50.415 +02:00 [INF] Hosting environment: Development
+2022-07-19 05:41:50.415 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 05:41:50.435 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 05:41:50.492 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 05:41:50.692 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 05:41:50.698 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 4.9864ms
+2022-07-19 05:41:50.710 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 278.3784ms
+2022-07-19 05:41:50.816 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 05:41:50.858 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 41.9988ms
+2022-07-19 05:41:50.985 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 05:41:51.140 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 155.6301ms
+2022-07-19 05:42:00.038 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Entry/1 - -
+2022-07-19 05:42:00.044 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:00.069 +02:00 [INF] Route matched with {action = "Handle", controller = "GetEntryById"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetEntryByIdResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetEntryByIdRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById (KG-CleanArchitecture.Web).
+2022-07-19 05:42:00.138 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:42:00.353 +02:00 [INF] Executed DbCommand (56ms) [Parameters=[@__entryId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+WHERE [e].[Id] = @__entryId_0
+2022-07-19 05:42:00.444 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.GetEntryByIdResponse'.
+2022-07-19 05:42:00.579 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web) in 505.49ms
+2022-07-19 05:42:00.581 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.GetEntryById.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:00.586 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Entry/1 - - - 200 50 application/json;+charset=utf-8 547.5907ms
+2022-07-19 05:42:12.366 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 05:42:12.367 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:12.370 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:42:12.375 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:42:12.404 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 05:42:12.407 +02:00 [INF] Executing OkObjectResult, writing value of type 'EntryListResponse'.
+2022-07-19 05:42:12.419 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 49.0909ms
+2022-07-19 05:42:12.419 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:12.419 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 200 113 application/json;+charset=utf-8 52.9545ms
+2022-07-19 05:42:32.275 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 52
+2022-07-19 05:42:32.276 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:32.278 +02:00 [INF] Route matched with {action = "Handle", controller = "CreateEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:42:38.067 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:42:38.255 +02:00 [INF] Executed DbCommand (37ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 05:42:38.334 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryResponse'.
+2022-07-19 05:42:38.336 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web) in 6057.8031ms
+2022-07-19 05:42:38.336 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:38.336 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 52 - 200 50 application/json;+charset=utf-8 6060.8622ms
+2022-07-19 05:42:47.758 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 05:42:47.758 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:47.759 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:42:47.759 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:42:47.763 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 05:42:47.767 +02:00 [INF] Executing OkObjectResult, writing value of type 'EntryListResponse'.
+2022-07-19 05:42:47.767 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 8.6661ms
+2022-07-19 05:42:47.767 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:42:47.768 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 200 164 application/json;+charset=utf-8 9.3317ms
+2022-07-19 05:43:14.895 +02:00 [INF] Request starting HTTP/1.1 PUT http://localhost:57678/Entry application/json-patch+json 70
+2022-07-19 05:43:14.895 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.UpdateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:43:14.899 +02:00 [INF] Route matched with {action = "Handle", controller = "UpdateEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdateEntryResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdateEntryRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.UpdateEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:43:14.913 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:43:14.942 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+WHERE [e].[Id] = @__p_0
+2022-07-19 05:43:15.028 +02:00 [INF] Executed DbCommand (32ms) [Parameters=[@p3='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [Entries] SET [Name] = @p0, [PhoneNumber] = @p1, [PhonebookId] = @p2
+WHERE [Id] = @p3;
+SELECT @@ROWCOUNT;
+2022-07-19 05:43:15.032 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.ProjectEndpoints.UpdateEntryResponse'.
+2022-07-19 05:43:15.033 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.UpdateEntry.HandleAsync (KG-CleanArchitecture.Web) in 134.2086ms
+2022-07-19 05:43:15.033 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.UpdateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:43:15.033 +02:00 [INF] Request finished HTTP/1.1 PUT http://localhost:57678/Entry application/json-patch+json 70 - 200 67 application/json;+charset=utf-8 138.7921ms
+2022-07-19 05:43:22.671 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 05:43:22.671 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:43:22.671 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 05:43:22.672 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 05:43:22.673 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 05:43:22.675 +02:00 [INF] Executing OkObjectResult, writing value of type 'EntryListResponse'.
+2022-07-19 05:43:22.675 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 4.1373ms
+2022-07-19 05:43:22.675 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 05:43:22.676 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 200 171 application/json;+charset=utf-8 4.7010ms
+2022-07-19 11:48:10.039 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:22:12.986 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:25:39.515 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:25:40.372 +02:00 [INF] Executed DbCommand (367ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [AbsaPhoneBookDb];
+2022-07-19 12:25:40.493 +02:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [AbsaPhoneBookDb] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2022-07-19 12:25:40.511 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 12:25:40.874 +02:00 [INF] Executed DbCommand (290ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2022-07-19 12:25:40.876 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 12:25:40.891 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-19 12:25:40.897 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-19 12:25:40.909 +02:00 [INF] Applying migration '20220719102213_DefaultMigration'.
+2022-07-19 12:25:40.940 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Phonebooks] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(100) NOT NULL,
+    CONSTRAINT [PK_Phonebooks] PRIMARY KEY ([Id])
+);
+2022-07-19 12:25:41.000 +02:00 [INF] Executed DbCommand (59ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Entries] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [PhoneNumber] nvarchar(max) NOT NULL,
+    [PhonebookId] int NOT NULL,
+    CONSTRAINT [PK_Entries] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Entries_Phonebooks_PhonebookId] FOREIGN KEY ([PhonebookId]) REFERENCES [Phonebooks] ([Id]) ON DELETE CASCADE
+);
+2022-07-19 12:25:41.002 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Entries_PhonebookId] ON [Entries] ([PhonebookId]);
+2022-07-19 12:25:41.040 +02:00 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220719102213_DefaultMigration', N'6.0.5');
+2022-07-19 12:54:59.028 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:55:00.071 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 12:55:00.134 +02:00 [INF] Executed DbCommand (43ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 12:55:00.159 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:55:00.497 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 12:55:00.548 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 12:55:00.553 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 12:55:00.873 +02:00 [INF] Executed DbCommand (56ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 12:55:00.914 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 12:55:00.916 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 12:55:00.990 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 12:55:01.121 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 12:55:01.121 +02:00 [INF] Hosting environment: Development
+2022-07-19 12:55:01.121 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 12:55:01.170 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 12:55:01.238 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 12:55:01.532 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 12:55:01.541 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 7.1220ms
+2022-07-19 12:55:01.555 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 388.4779ms
+2022-07-19 12:55:01.664 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 12:55:01.715 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 50.4664ms
+2022-07-19 12:55:01.843 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 12:55:02.069 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 225.9176ms
+2022-07-19 12:55:32.665 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/create-phonebook application/json-patch+json 30
+2022-07-19 12:55:32.671 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:32.701 +02:00 [INF] Route matched with {action = "Handle", controller = "CreatePhonebook"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook (KG-CleanArchitecture.Web).
+2022-07-19 12:55:32.904 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:55:32.915 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Phonebooks] ([Name])
+VALUES (@p0);
+SELECT [Id]
+FROM [Phonebooks]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 12:55:32.969 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebookResponse'.
+2022-07-19 12:55:33.023 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web) in 316.489ms
+2022-07-19 12:55:33.024 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreatePhonebook.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:33.029 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/create-phonebook application/json-patch+json 30 - 200 32 application/json;+charset=utf-8 364.5366ms
+2022-07-19 12:55:47.997 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/get-phonebook-list - -
+2022-07-19 12:55:47.997 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:48.000 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 12:55:48.005 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:55:48.022 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 12:55:48.040 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 12:55:48.050 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 49.7594ms
+2022-07-19 12:55:48.051 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:48.051 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/get-phonebook-list - - - 200 78 application/json;+charset=utf-8 53.9895ms
+2022-07-19 12:55:50.000 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/get-phonebook-list - -
+2022-07-19 12:55:50.000 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:50.000 +02:00 [INF] Route matched with {action = "Handle", controller = "List"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[PhonebookListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List (KG-CleanArchitecture.Web).
+2022-07-19 12:55:50.000 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:55:50.002 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Name]
+FROM [Phonebooks] AS [p]
+2022-07-19 12:55:50.004 +02:00 [INF] Executing OkObjectResult, writing value of type 'PhonebookListResponse'.
+2022-07-19 12:55:50.005 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web) in 4.8323ms
+2022-07-19 12:55:50.005 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.List.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:55:50.005 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/get-phonebook-list - - - 200 78 application/json;+charset=utf-8 5.6278ms
+2022-07-19 12:56:19.878 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 72
+2022-07-19 12:56:19.878 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:56:19.881 +02:00 [INF] Route matched with {action = "Handle", controller = "CreateEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryResponse]] HandleAsync(KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryRequest, System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry (KG-CleanArchitecture.Web).
+2022-07-19 12:56:19.894 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:56:19.909 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Entries] ([Name], [PhoneNumber], [PhonebookId])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [Entries]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+2022-07-19 12:56:19.952 +02:00 [INF] Executing OkObjectResult, writing value of type 'KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints.CreateEntryResponse'.
+2022-07-19 12:56:19.954 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web) in 72.5115ms
+2022-07-19 12:56:19.954 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.CreateEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:56:19.954 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:57678/create-entry application/json-patch+json 72 - 200 50 application/json;+charset=utf-8 75.8949ms
+2022-07-19 12:56:41.516 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 12:56:41.518 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:56:41.522 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 12:56:41.523 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 12:56:41.543 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 12:56:41.555 +02:00 [INF] Executing OkObjectResult, writing value of type 'EntryListResponse'.
+2022-07-19 12:56:41.559 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 37.1558ms
+2022-07-19 12:56:41.559 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 12:56:41.560 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 200 164 application/json;+charset=utf-8 44.4033ms
+2022-07-19 13:04:33.698 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 13:04:34.516 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-19 13:04:34.831 +02:00 [INF] Executed DbCommand (295ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-19 13:04:34.854 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 13:04:35.280 +02:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-19 13:04:35.322 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-19 13:04:35.405 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-19 13:04:35.405 +02:00 [INF] Hosting environment: Development
+2022-07-19 13:04:35.405 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-19 13:04:35.430 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-19 13:04:35.488 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-19 13:04:35.730 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-19 13:04:35.737 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 6.2357ms
+2022-07-19 13:04:35.754 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 327.9590ms
+2022-07-19 13:04:35.871 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-19 13:04:35.914 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 42.3176ms
+2022-07-19 13:04:36.044 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-19 13:04:36.208 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 164.5875ms
+2022-07-19 13:04:49.972 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Get-entry-list - -
+2022-07-19 13:04:49.976 +02:00 [INF] Executing endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 13:04:50.006 +02:00 [INF] Route matched with {action = "Handle", controller = "ListEntry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[EntryListResponse]] HandleAsync(System.Threading.CancellationToken) on controller KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry (KG-CleanArchitecture.Web).
+2022-07-19 13:04:50.062 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-19 13:04:50.176 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Name], [e].[PhoneNumber], [e].[PhonebookId]
+FROM [Entries] AS [e]
+2022-07-19 13:04:50.263 +02:00 [INF] Executing OkObjectResult, writing value of type 'EntryListResponse'.
+2022-07-19 13:04:50.420 +02:00 [INF] Executed action KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web) in 409.114ms
+2022-07-19 13:04:50.422 +02:00 [INF] Executed endpoint 'KG_CleanArchitecture.Web.Endpoints.EntriesEndpoints.ListEntry.HandleAsync (KG-CleanArchitecture.Web)'
+2022-07-19 13:04:50.428 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Get-entry-list - - - 200 212 application/json;+charset=utf-8 456.1595ms

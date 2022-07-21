@@ -1,0 +1,54 @@
+2022-07-21 03:50:59.537 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-21 03:51:00.031 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-21 03:51:00.058 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-21 03:51:00.061 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-21 03:51:00.062 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-21 03:51:00.079 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-21 03:51:00.092 +02:00 [INF] No migrations were applied. The database is already up to date.
+2022-07-21 13:44:10.237 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-21 13:44:11.562 +02:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-21 13:44:11.683 +02:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2022-07-21 13:44:11.725 +02:00 [INF] Entity Framework Core 6.0.5 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.5' with options: None
+2022-07-21 13:44:12.138 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Entries] AS [e]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2022-07-21 13:44:12.187 +02:00 [INF] User profile is available. Using 'C:\Users\Percy-Leso\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-07-21 13:44:12.290 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-07-21 13:44:12.290 +02:00 [INF] Hosting environment: Development
+2022-07-21 13:44:12.290 +02:00 [INF] Content root path: C:\Users\Percy-Leso\source\repos\KG-CleanArchitecture\KG-CleanArchitecture\src\KG-CleanArchitecture.Web\
+2022-07-21 13:44:12.312 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/index.html - -
+2022-07-21 13:44:12.385 +02:00 [WRN] Failed to determine the https port for redirect.
+2022-07-21 13:44:12.775 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - -
+2022-07-21 13:44:12.785 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 8.3635ms
+2022-07-21 13:44:12.799 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/index.html - - - 200 - text/html;charset=utf-8 490.1931ms
+2022-07-21 13:44:12.921 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - -
+2022-07-21 13:44:12.973 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 52.1235ms
+2022-07-21 13:44:13.116 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - -
+2022-07-21 13:44:13.287 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 170.2301ms

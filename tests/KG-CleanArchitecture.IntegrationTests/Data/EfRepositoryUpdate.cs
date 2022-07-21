@@ -12,7 +12,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // add a phonebook entry
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var phonebook = new Phonebook();
+    var phonebook = new Phonebook("Test name");
 
     await repository.AddAsync(phonebook);
 

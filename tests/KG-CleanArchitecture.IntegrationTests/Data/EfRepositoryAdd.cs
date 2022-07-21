@@ -10,7 +10,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   {
     var testPhonebookName = "testPhonebookName";
     var repository = GetRepository();
-    var phonebook = new Phonebook();
+    var phonebook = new Phonebook("Test name");
 
     await repository.AddAsync(phonebook);
 

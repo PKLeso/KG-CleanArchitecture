@@ -17,7 +17,7 @@ public class List : EndpointBaseAsync
     _repository = repository;
   }
 
-  [HttpGet("/Phonebook")]
+  [HttpGet("/get-phonebook-list")]
   [SwaggerOperation(
       Summary = "Gets a list of all Phonebook",
       Description = "Gets a list of all Phonebook",

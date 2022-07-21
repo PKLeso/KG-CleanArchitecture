@@ -6,13 +6,13 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KG_CleanArchitecture.Web.Endpoints.PhonebookEndpoints;
 
-public class Delete : EndpointBaseAsync
+public class DeletePhonebook : EndpointBaseAsync
     .WithRequest<DeletePhonebookRequest>
     .WithoutResult
 {
   private readonly IRepository<Phonebook> _repository;
 
-  public Delete(IRepository<Phonebook> repository)
+  public DeletePhonebook(IRepository<Phonebook> repository)
   {
     _repository = repository;
   }
